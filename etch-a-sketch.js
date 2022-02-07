@@ -1,51 +1,87 @@
-
-const holdingContainer = document.getElementById('grid-container');
-
-
-
-function createGrid(number){ //creates a grid size eg 16x16
-    if(number <100){
-    const rows = number;
-    const cols = rows;
-    holdingContainer.style.setProperty('--grid-rows', rows);  //sets the row to 16
-    holdingContainer.style.setProperty('--grid-cols', cols); //sets the column to 16
- 
-    for(i = 0; i<(cols * rows); i++){
-        const cell = document.createElement('div'); //creating 16X16 div  
-        holdingContainer.appendChild(cell); //adds div to grid-container
-        cell.classList.add('items'); //adds classname grid-items to the div
-    }
-}else {
-    prompt("Number above input limit");
-}
-}
-
-function setBackground(){
-
-const item = document.querySelectorAll('.items');  //selects all div inside grid-container
-
-item.forEach((items)=>{  //iterate each items
-
-    items.addEventListener('mouseover', (e) =>{   
-  
-          e.target.style.background = 'black'; //sets the background-color to black
-        
-});
-
-});
-}
-function reset(){
-    
-}
-function start(){
+const main = document.querySelector('#container');
 const btn = document.querySelector('.button-33');
+const item = document.querySelectorAll('.items');
+const reset =  document.querySelector('.reset');
+const button = document.querySelector('.random');
 
-btn.addEventListener('click',() =>{   
 
-    const number = Number(prompt("Enter a Number : "));
-    createGrid(number);
-    setBackground();
+function createGrid(number){
+    number = parseInt(prompt('Enter a number:'));
+    if(number<=100){
+for (let i = 0; i < number; i++) {
+    let col = document.createElement("div");
+    main.appendChild(col);
+    col.classList.add("cell");
 
-     
+
+    for (let i = 0; i < number; i++) {
+        let cell  = document.createElement('div');
+        cell.classList.add('items');
+        col.appendChild(cell); 
+
+    }
+  }
+}
+    else{
+        alert('NUmber is above maximum input');
+    }
+}
+function hover(){
+let item = document.querySelectorAll('.items');
+item.forEach((items)=>{
+    items.addEventListener('mouseover', (event)=>{
+        event.target.style.background = 'black';
+    });
 });
 }
+
+function resetButton(){
+reset.addEventListener('click', ()=>{
+    clearGrid();
+});
+}
+
+
+function clearGrid(){
+   let item = document.querySelectorAll('.cell');
+   NodeList.prototype.forEach.call(item, function(node){
+    node.parentNode.removeChild(node);
+ });
+}
+    
+function clickButton(){
+    const btn = document.querySelector('.button-33');
+    btn.addEventListener('click', ()=>{
+        createGrid();
+        hover();
+        
+    });
+}
+
+function getRandom(){
+        var o = Math.round, r = Math.random, s = 255;
+        return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+    }
+ 
+    function colorHover(){
+        
+        let item = document.querySelectorAll('.items');
+        item.forEach((items)=>{
+        items.addEventListener('mouseover', (event)=>{
+        event.target.style.background = getRandom().toString();
+    });
+});
+    }
+    function clickColorBtn(){
+        button.addEventListener('click', ()=>{
+            colorHover();
+        });
+    }
+
+
+
+clickButton();
+resetButton();
+clickColorBtn();
+
+
