@@ -3,6 +3,7 @@ const btn = document.querySelector('.button-33');
 const item = document.querySelectorAll('.items');
 const reset =  document.querySelector('.reset');
 const button = document.querySelector('.random');
+const tint = document.querySelector('.tint');
 
 
 function createGrid(number){
@@ -64,7 +65,7 @@ function getRandom(){
     }
  
     function colorHover(){
-        
+
         let item = document.querySelectorAll('.items');
         item.forEach((items)=>{
         items.addEventListener('mouseover', (event)=>{
@@ -77,11 +78,25 @@ function getRandom(){
             colorHover();
         });
     }
+    function tintBtn(){
+        tint.addEventListener('click', ()=>{
+            colorTint();
+        });
+    }
+    function colorTint(){
+        let item = document.querySelectorAll('.items');
+        item.forEach((items)=>{
+            items.addEventListener('mouseover', (event)=>{         
+                event.target.style.background = '#1a1a1a';
+            });
+        });
+    }
 
 
 
 clickButton();
 resetButton();
 clickColorBtn();
+tintBtn();
 
 
